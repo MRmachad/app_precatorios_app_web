@@ -1,0 +1,16 @@
+{
+  "modules": [
+    {
+      "id": "prec",
+      "name": "Processos",
+      "icon": "fa-scale-balanced",
+      "resources": [
+        {
+          "id": "precatorio",
+          "name": "Gerenciamento de precatórios",
+          "src": "./src/pages/Relatorio/index.tsx"
+        }
+      ]
+    }
+  ]
+}

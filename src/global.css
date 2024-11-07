@@ -1,0 +1,136 @@
+:root {
+  --white-100: #FFFFFF;
+  --white-200: #F2F3F4;
+  --white-300: #E9ECEF;
+  --white-400: #DEE2E6;
+  --white-500: #4C5359;
+
+  --black-100: #ABAEB1;
+  --black-200: #7D7686;
+  --black-300: #2D353C;
+  --black-400: #1D2226;
+
+  --gray-100: #E2E2E2;
+  --gray-200: #717171;
+  --gray-300: #383838;
+  --gray-400: #1C1C1C;
+
+  --red-100: #FFDEDD;
+  --red-200: #FFBDBC;
+  --red-300: #FF9D9A;
+  --red-400: #FF7C79;
+  --red-500: #FF5B57;
+
+  --default: #DEE2E6;
+  --success: #00ACAC;
+  --success-hover: #009191;
+  --warning: #F59C1A;
+  --warning-hover: #d3861b;
+  --danger: #E61B1B;
+  --danger-hover: #bc1818;
+}
+
+&&.warning {
+  background: var(--warning);
+}
+
+&&.success {
+  background: var(--success);
+}
+
+&&.danger {
+  background: var(--danger);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--white-200);
+  color: var(--black-300);
+  -webkit-font-smoothing: antialiased;
+}
+
+body, input, textarea, button {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+h1, h2, h3, h4, p, label, span {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+
+a, button {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
+}
+
+table {
+  overflow: hidden;
+  padding: 0;
+  caption-side: bottom;
+  border-collapse: collapse;
+
+  thead {
+    background: var(--gray-100);
+    color: var(--black-200);
+    
+    tr th {      
+      text-align: inherit;
+      text-align: -webkit-match-parent;
+      padding: .225rem .5rem;
+      font-size: .825rem;
+
+      &:not(:last-child) {
+        border-right: 1px solid var(--white-400);
+      }
+    }
+  }
+
+  tbody {
+    background: var(--white-200);
+    border: 1px solid var(--white-400);
+
+    tr td {
+      font-size: .725rem;
+      padding: .225rem .5rem;
+      color: var(--black-200);
+
+      &:not(:last-child) {
+        border-right: 1px solid var(--white-400);
+      }
+    }
+
+    tr {
+      &:nth-child(2n+1) {
+        background: var(--white-100);
+      }
+
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--white-400);
+      }
+
+      &:hover {
+        background: var(--white-400);
+      }
+    }
+  }
+}
+
+@keyframes rotateAnimation {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
