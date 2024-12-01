@@ -19,7 +19,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { VinculosGerenciamentoProcessoDTO } from "./../../models/judicial/vinculoGerenciamentoProcesso";
-import { createVinculosGerenciamentoProcesso, getVinculosGerenciamentoProcessoInclusos } from "../../services/UMBITAppGen";
+import {
+  createVinculosGerenciamentoProcesso,
+  getVinculosGerenciamentoProcessoInclusos,
+} from "../../services/UMBITAppGen";
 
 interface Movimentacao {
   dataHora: string;
@@ -28,8 +31,8 @@ interface Movimentacao {
 }
 
 export const DetalhesProcesso = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [, setLoading] = useState<boolean>(false);
+  const [, setError] = useState<string | null>(null);
   const [movimentacoes, setMovimentacoes] = useState<Movimentacao[]>([]);
   const [classe, setClasse] = useState<string>("");
   const [orgaoJulgador, setOrgaoJulgador] = useState<string>("");
@@ -41,13 +44,14 @@ export const DetalhesProcesso = () => {
     vinculo: VinculosGerenciamentoProcessoDTO;
   } = useLocation().state;
 
-  const [_vinculo, setVinculo] = useState<VinculosGerenciamentoProcessoDTO | undefined>(vinculo)
+  const [_vinculo, setVinculo] = useState<
+    VinculosGerenciamentoProcessoDTO | undefined
+  >(vinculo);
 
   const PolosAtivos = processo.nomePoloAtivo.split(",").filter((t) => t != " ");
   const PolosPassivos = processo.nomePoloPassivo
     .split(",")
     .filter((t) => t != " ");
-
 
   useEffect(() => {
     const fetchMovimentacoes = async () => {
@@ -136,20 +140,20 @@ export const DetalhesProcesso = () => {
     }
   };
   const handlerMarcar = async () => {
-    
     await createVinculosGerenciamentoProcesso([processo.uuid]);
 
-    const result = (await getVinculosGerenciamentoProcessoInclusos([processo.uuid]))
+    const result = await getVinculosGerenciamentoProcessoInclusos([
+      processo.uuid,
+    ]);
 
-    setVinculo(result?.dados[0]);
-
-  }
+    setVinculo(result?.dados?.[0]);
+  };
   return (
     <ProcessoContainer>
       <HeaderContainer>
         <div style={{ marginTop: "5px" }}>
           <NumeroTitle>
-            <FontAwesomeIcon icon={"fa-scale-balanced"} />{" "}
+            <FontAwesomeIcon icon={"scale-balanced"} />{" "}
             {processo.numeroProcesso}
           </NumeroTitle>
         </div>
@@ -169,7 +173,13 @@ export const DetalhesProcesso = () => {
             <InfoTitle>
               <FontAwesomeIcon icon={"home"} /> Valor da Causa
             </InfoTitle>
-            <InfoValue>R$ {processo.valor}</InfoValue>
+            <InfoValue>
+              R$ $
+              {processo.valor.toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </InfoValue>
           </InfoCard>
           <InfoCard>
             <InfoTitle>
@@ -233,7 +243,8 @@ export const DetalhesProcesso = () => {
           {!_vinculo && (
             <ActionButton
               download={false}
-              onClick={() => {handlerMarcar()
+              onClick={() => {
+                handlerMarcar();
               }}
             >
               <FontAwesomeIcon icon="check-circle" /> Marcar como Lida

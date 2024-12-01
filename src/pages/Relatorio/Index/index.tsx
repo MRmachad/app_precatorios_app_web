@@ -13,13 +13,14 @@ import {
 } from "../../../services/UMBITAppGen";
 import { VinculosGerenciamentoProcessoDTO } from "./../../../models/judicial/vinculoGerenciamentoProcesso";
 import { APIResponse } from "../../../models/base/APIResponse";
+import { Input } from "../../../components/Input";
 
 export const ProcessoView = () => {
   const navigation = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [loading, setLoading] = useState<boolean>(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [error, setError] = useState<string | null>(null);
+   
+  const [, setLoading] = useState<boolean>(false);
+   
+  const [, setError] = useState<string | null>(null);
   const [
     vinculosGerenciamentoRelacionados,
     setVinculosGerenciamentoRelacionados,
@@ -77,9 +78,8 @@ export const ProcessoView = () => {
             .sucesso) ||
         vinculosASerCriado
       ) {
-        if(vinculosASerCriado){
+        if (vinculosASerCriado) {
           setAtualizeDados(true);
-
         }
         const response = await getEnterprises(marcados);
 
@@ -145,7 +145,7 @@ export const ProcessoView = () => {
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setResourse(`data-processo?valor=${sliderValue}`);
+      setResourse(`data-processo?$filter=valor eq ${sliderValue}`);
 
       setAtualizeDados(true);
     }, 500);
@@ -153,7 +153,6 @@ export const ProcessoView = () => {
   }, [sliderValue]);
 
   useEffect(() => {
-    console.log("teste");
     if (!isSliderDisabled) {
       setResourse(`data-processo`);
     }
@@ -162,6 +161,7 @@ export const ProcessoView = () => {
 
   useEffect(() => {
     handlerGetVinculosGerenciamento();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [processos]);
 
   return (
@@ -217,14 +217,10 @@ export const ProcessoView = () => {
           },
           {
             value: (i) => {
-              const aux = parseFloat(
-                i.valor.replace(".", "").replace(",", ".")
-              );
-
               return (
                 <>
-                  {aux
-                    ? `R$ ${aux.toLocaleString("pt-BR", {
+                  {i.valor !== 0
+                    ? `R$ ${i.valor.toLocaleString("pt-BR", {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}`
@@ -265,7 +261,7 @@ export const ProcessoView = () => {
                   processo: o,
                   vinculo: vinculosGerenciamentoRelacionados.find(
                     (t) => t.uuid == o.uuid
-                  )
+                  ),
                 },
               });
             },
@@ -280,6 +276,21 @@ export const ProcessoView = () => {
                 isSliderDisabled={isSliderDisabled}
                 setIsSliderDisabled={setIsSliderDisabled}
               />
+            ),
+          },
+          {
+            value: () => (
+              <>
+                <Input title={"Polo Passivo"}></Input>
+              </>
+            ),
+          },
+          {
+            value: () => (
+              <>
+                <Input icon="spinner" title={"Polo Ativo"}>
+                </Input>
+              </>
             ),
           },
           {
@@ -311,7 +322,7 @@ export const ProcessoView = () => {
             },
           },
         ]}
-        pageSize={3}
+        pageSize={50}
         atualize={_atualizeDados}
         onDadosAtualizados={(msg) => {
           setAtualizeDados(false);

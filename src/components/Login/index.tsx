@@ -4,10 +4,10 @@ import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { Form } from "../../components";
 import { useNavigate } from "react-router-dom";
 import { APIResponse, APIResponseBase, APIResponseError } from "../../models/base/APIResponse";
-import { AuthStatus } from "../../models/auth/AuthStatus";
+import { Form } from "../Form";
+import { AuthStatus } from "../../context/auth/AuthStatus";
 
 interface LoginPageProps {
   background: string;
@@ -44,7 +44,7 @@ export function LoginPage({ background, logo, checkAuthStatusHandler, addAdminHa
     setLoading(true);
 
     try {
-      var response = await login(user, password);
+      const response = await login(user, password);
 
       if(response) {
         navigate("/");
@@ -61,7 +61,7 @@ export function LoginPage({ background, logo, checkAuthStatusHandler, addAdminHa
     try
     {
 
-      var response = await addAdminHandler(
+      const response = await addAdminHandler(
         admNome,
         admEmail,
         admPassword,
@@ -92,6 +92,7 @@ export function LoginPage({ background, logo, checkAuthStatusHandler, addAdminHa
 
   useEffect(() => {
     updateConfigurationStatus();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

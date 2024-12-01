@@ -1,3 +1,4 @@
+ 
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -7,17 +8,16 @@ import { Container } from "./styles";
 import { APIResponse } from "../../models/base/APIResponse";
 import { UMBITService } from "../../services/base/UMBITService";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-interface Column<T> {
+interface Column {
   header: string;
 }
 
-interface SimpleColumn<T> extends Column<T> {
+interface SimpleColumn<T> extends Column {
   filterable?: boolean;
   key: keyof T;
 }
 
-interface CustomColumn<T> extends Column<T> {
+interface CustomColumn<T> extends Column {
   value: (instanceData: T) => JSX.Element;
 }
 interface CustomAction {
@@ -77,21 +77,7 @@ export const DataTable = <T extends object>({
   const [filter, setFilter] = useState("");
   const [totalItems, setTotalItems] = useState(0);
 
-  useEffect(() => {
-    if (!atualize) fetchData();
-  }, [page]);
-
-  useEffect(() => {
-    if (atualize) {
-      fetchData();
-    }
-  }, [atualize]);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    fetchData();
-  };
-
+   
   const fetchData = async () => {
     try {
       const umbitService = new UMBITService(apiAddress);
@@ -136,6 +122,24 @@ export const DataTable = <T extends object>({
       console.error("Erro ao buscar os dados: ", error);
     }
   };
+  
+  useEffect(() => {
+    if (!atualize) fetchData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [atualize, page]);
+
+  useEffect(() => {
+    if (atualize) {
+      fetchData();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [atualize]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    fetchData();
+  };
+
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFilter(e.target.value);

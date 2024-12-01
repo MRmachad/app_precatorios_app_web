@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+ 
 import { BackgroundContent, Container, Content } from "./styles";
 
 import { Button } from "../../components/Button";
@@ -21,8 +21,8 @@ export function LoginPage({
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [user, setUser] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [, setUser] = useState<string>("");
+  const [, setPassword] = useState<string>("");
 
   const onAuthenticateSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

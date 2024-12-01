@@ -5,7 +5,6 @@ import {
   MenuButton,
   MenuContainer,
   MenuItem,
-  SideContainer,
   SubMenuItem,
 } from "./styles";
 

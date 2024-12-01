@@ -15,7 +15,7 @@ export interface MetaProcesso {
     nomePoloPassivo: string; // Nome do polo passivo
     nomePoloAtivo: string; // Nome do polo ativo
     assunto: string; // Assunto do processo
-    valor: string; // Valor do processo
+    valor: number; // Valor do processo
     serventia: string; // Serventia do processo
     createdAt: string; // Data de criação no formato ISO 8601
     updatedAt: string; // Data de atualização no formato ISO 8601

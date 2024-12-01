@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import axios from 'axios';
 import { Button, Container, Input, InputGroup, Label, Title } from './styles';
 
